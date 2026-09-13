@@ -11,13 +11,17 @@
     "nativewind": "^4.2.6",
     "react": "19.2.3",
     "react-native": "0.86.3",
-    "react-native-reanimated": "^4.6.0",
-    "react-native-safe-area-context": "^5.9.1",
-    "react-native-screens": "~4.26.0"
+    "react-native-reanimated": "4.5.1",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.26.0",
+    "react-native-worklets": "0.10.1"
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
     "babel-preset-expo": "^57.0.11",
+    "eslint": "^10.10.0",
+    "eslint-config-brunoazevedo": "^1.1.0",
+    "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.4.17",
     "typescript": "~6.0.3"
@@ -26,7 +30,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "lint": "eslint --ext .ts,.tsx src",
+    "lint:fix": "eslint --ext .ts,.tsx src --fix"
   },
   "private": true
 }
