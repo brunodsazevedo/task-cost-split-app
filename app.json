@@ -2,6 +2,10 @@
   "expo": {
     "name": "task-cost-split-app",
     "slug": "task-cost-split-app",
+    "scheme": "task-cost-split-app",
+    "experiments": {
+      "typedRoutes": true
+    },
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,6 +24,10 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar"
+    ]
   }
 }
