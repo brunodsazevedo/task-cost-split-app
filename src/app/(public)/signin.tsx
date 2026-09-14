@@ -1,9 +1,8 @@
-import { View, Text } from 'react-native'
+import { useSigninViewModel } from '@/viewModels/Signin/useSigninViewModel'
+import { SigninView } from '@/viewModels/Signin/signin.view'
 
 export default function Signin() {
-  return (
-    <View className="flex-1 items-center justify-center">
-      <Text>signin</Text>
-    </View>
-  )
+  const viewModel = useSigninViewModel()
+
+  return <SigninView {...viewModel} />
 }
