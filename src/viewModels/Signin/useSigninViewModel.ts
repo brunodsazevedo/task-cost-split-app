@@ -1,9 +1,11 @@
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
+import { router } from 'expo-router'
 
 import { toast } from '@/components/ui/Toast'
 
 import { useSigninMutation } from '@/queries/useSignin.mutation'
+
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import { AppError } from '@/utils/AppError'
 
@@ -33,7 +35,11 @@ export function useSigninViewModel() {
     }
   }
 
+  function handleSignUp() {
+    router.push('/signup')
+  }
+
   const handleSignIn = handleSubmit(onSignIn)
 
-  return { control, handleSignIn }
+  return { control, handleSignIn, handleSignUp }
 }

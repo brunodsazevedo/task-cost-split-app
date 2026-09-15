@@ -15,12 +15,16 @@ import { useSigninViewModel } from './useSigninViewModel'
 
 type SigninViewProps = ReturnType<typeof useSigninViewModel>
 
-export function SigninView({ control, handleSignIn }: SigninViewProps) {
+export function SigninView({
+  control,
+  handleSignIn,
+  handleSignUp,
+}: SigninViewProps) {
   return (
-    <ScrollView>
+    <ScrollView contentContainerClassName="bg-base">
       <KeyboardContainer>
         <View className="bg-base">
-          <View className="items-center justify-center gap-2 h-[362px]">
+          <View className="items-center justify-center gap-4 h-[362px]">
             <LogoSvg height={64} width={64} />
 
             <LogoNameSvg />
@@ -66,7 +70,9 @@ export function SigninView({ control, handleSignIn }: SigninViewProps) {
                 Ainda não tem cadastro?
               </Text>
 
-              <Button variant="secondary">Criar conta</Button>
+              <Button variant="secondary" onPress={handleSignUp}>
+                Criar conta
+              </Button>
             </View>
           </SafeAreaView>
         </View>

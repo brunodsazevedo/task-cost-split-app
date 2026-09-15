@@ -1,5 +1,10 @@
 import { ElementType, ReactNode } from 'react'
-import { Text, TouchableOpacity, TouchableOpacityProps } from 'react-native'
+import {
+  ActivityIndicator,
+  Text,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native'
 import { SvgProps } from 'react-native-svg'
 
 import { colors } from '@/theme/colors'
@@ -44,11 +49,17 @@ export function Button({
       className={styles.container({ className })}
       {...rest}
     >
-      {LeftIcon && <LeftIcon height={24} width={24} color={iconColor} />}
+      {isLoading ? (
+        <ActivityIndicator size="small" color={iconColor} />
+      ) : (
+        <>
+          {LeftIcon && <LeftIcon height={24} width={24} color={iconColor} />}
 
-      <Text className={styles.text()}>{children}</Text>
+          <Text className={styles.text()}>{children}</Text>
 
-      {RightIcon && <RightIcon height={24} width={24} color={iconColor} />}
+          {RightIcon && <RightIcon height={24} width={24} color={iconColor} />}
+        </>
+      )}
     </TouchableOpacity>
   )
 }
