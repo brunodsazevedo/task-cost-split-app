@@ -7,13 +7,13 @@ import { UserData } from '@/interfaces/UserData'
 interface UserStore {
   user: UserData | null
   token: string | null
+  setSession: (sessionParams: SessionParams) => void
+  logout: () => void
 }
 
 interface SessionParams {
   user: UserData
   token: string
-  setSession: (sessionParams: SessionParams) => void
-  logout: () => void
 }
 
 export const useUserStore = create<UserStore>()(
@@ -22,8 +22,7 @@ export const useUserStore = create<UserStore>()(
       user: null,
       token: null,
 
-      setSession: (sessionParams: SessionParams) =>
-        set({ user: sessionParams.user, token: sessionParams.token }),
+      setSession: (sessionParams: SessionParams) => set({ ...sessionParams }),
 
       logout: () => set({ user: null, token: null }),
     }),
