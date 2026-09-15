@@ -1,9 +1,10 @@
 import { View, Text, ScrollView } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
+import { InputController } from '@/components/ui/InputController'
 import { KeyboardContainer } from '@/components/KeyboardContainer'
-import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
+import { Divider } from '@/components/ui/Divider'
 
 import LogoSvg from '@/assets/images/logo.svg'
 import LogoNameSvg from '@/assets/images/logo-name.svg'
@@ -11,11 +12,10 @@ import EmailIcon from '@/assets/icons/mail-send-envelope.svg'
 import AsteriskIcon from '@/assets/icons/asterisk.svg'
 
 import { useSigninViewModel } from './useSigninViewModel'
-import { Divider } from '@/components/ui/Divider'
 
 type SigninViewProps = ReturnType<typeof useSigninViewModel>
 
-export function SigninView({}: SigninViewProps) {
+export function SigninView({ control, handleSignIn }: SigninViewProps) {
   return (
     <ScrollView>
       <KeyboardContainer>
@@ -36,11 +36,18 @@ export function SigninView({}: SigninViewProps) {
 
             <View className="gap-3">
               <View>
-                <Input placeholder="E-mail" leftIcon={EmailIcon} />
+                <InputController
+                  control={control}
+                  name="email"
+                  placeholder="E-mail"
+                  leftIcon={EmailIcon}
+                />
               </View>
 
               <View>
-                <Input
+                <InputController
+                  control={control}
+                  name="password"
                   placeholder="Senha"
                   leftIcon={AsteriskIcon}
                   secureTextEntry
@@ -48,7 +55,7 @@ export function SigninView({}: SigninViewProps) {
               </View>
             </View>
 
-            <Button>Entrar</Button>
+            <Button onPress={handleSignIn}>Entrar</Button>
 
             <View className="justify-end gap-y-4">
               <View className="mb-8">
