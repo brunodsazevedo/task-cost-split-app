@@ -6,7 +6,7 @@ export default function StartApp() {
   const { token } = useUserStore()
 
   if (token) {
-    return <Redirect href="/(private)/resume" />
+    return <Redirect href="/(private)/(tabs)/resume" />
   }
 
   return <Redirect href="/(public)/signin" />
