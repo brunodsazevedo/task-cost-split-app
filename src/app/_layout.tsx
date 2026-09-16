@@ -4,6 +4,7 @@ import { Stack } from 'expo-router'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { toast as Toast, toastConfig } from '@/components/ui/Toast'
+import { Modal } from '@/components/ui/Modal'
 
 import { useUserStore } from '@/store/useUserStore'
 
@@ -33,6 +34,8 @@ export default function RootLayout() {
       <StatusBar barStyle="light-content" translucent />
 
       <RootNavigator />
+
+      <Modal />
 
       <Toast config={toastConfig} />
     </QueryClientProvider>

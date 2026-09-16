@@ -1,0 +1,56 @@
+import { View, Text } from 'react-native'
+
+import { Button } from '@/components/ui/Button'
+import { IconButton } from '@/components/ui/IconButton'
+import { InputController } from '@/components/ui/InputController'
+
+import CloseIcon from '@/assets/icons/x.svg'
+import CalendarIcon from '@/assets/icons/blank-calendar.svg'
+
+import { useActivityModalViewModel } from './useActivityModalViewModel'
+
+type Props = ReturnType<typeof useActivityModalViewModel>
+
+export function ActivityModalView({
+  control,
+  handleCreateActivity,
+  handleCloseModal,
+}: Props) {
+  return (
+    <View className="w-full gap-y-6 p-6 rounded-xl bg-gray-700">
+      <View className="flex-row items-center justify-between">
+        <Text className="font-label text-lg text-gray-100">Nova atividade</Text>
+
+        <IconButton
+          icon={CloseIcon}
+          variant="secondary"
+          onPress={handleCloseModal}
+          className="bg-transparent border-0"
+        />
+      </View>
+
+      <View className="gap-y-3">
+        <View>
+          <InputController
+            control={control}
+            name="title"
+            placeholder="Título"
+          />
+        </View>
+
+        <View>
+          <InputController
+            control={control}
+            name="activityDate"
+            leftIcon={CalendarIcon}
+            placeholder="Data"
+          />
+        </View>
+      </View>
+
+      <View>
+        <Button onPress={handleCreateActivity}>Criar</Button>
+      </View>
+    </View>
+  )
+}

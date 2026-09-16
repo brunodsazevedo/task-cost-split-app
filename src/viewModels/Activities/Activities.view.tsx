@@ -12,7 +12,11 @@ import { useActivitiesViewModel } from './useActivitiesViewModel'
 
 type Props = ReturnType<typeof useActivitiesViewModel>
 
-export function ActivitiesView({ activities, handleLogout }: Props) {
+export function ActivitiesView({
+  activities,
+  handleLogout,
+  handleShowCreateActivityModal,
+}: Props) {
   return (
     <View className="flex-1 bg-base">
       <Header onSignout={handleLogout} />
@@ -42,12 +46,13 @@ export function ActivitiesView({ activities, handleLogout }: Props) {
             </Text>
           </View>
         }
-        ListFooterComponent={
-          <View className="absolute bottom-0 right-0 w-3/12">
-            <Button leftIcon={AddIcon}>Criar</Button>
-          </View>
-        }
       />
+
+      <View className="absolute bottom-6 right-6 w-3/12">
+        <Button leftIcon={AddIcon} onPress={handleShowCreateActivityModal}>
+          Criar
+        </Button>
+      </View>
     </View>
   )
 }
