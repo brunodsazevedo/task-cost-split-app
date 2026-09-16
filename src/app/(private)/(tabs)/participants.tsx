@@ -1,9 +1,8 @@
-import { View, Text } from 'react-native'
+import { useParticipantsViewModel } from '@/viewModels/Participants/useParticipants.viewModel'
+import { ParticipantsView } from '@/viewModels/Participants'
 
 export default function Participants() {
-  return (
-    <View className="flex-1 items-center justify-center">
-      <Text>participants</Text>
-    </View>
-  )
+  const viewModel = useParticipantsViewModel()
+
+  return <ParticipantsView {...viewModel} />
 }
