@@ -1,9 +1,8 @@
-import { View, Text } from 'react-native'
+import { ActivitiesView } from '@/viewModels/Activities/Activities.view'
+import { useActivitiesViewModel } from '@/viewModels/Activities/useActivitiesViewModel'
 
 export default function Activities() {
-  return (
-    <View className="flex-1 items-center justify-center">
-      <Text>activities</Text>
-    </View>
-  )
+  const viewModel = useActivitiesViewModel()
+
+  return <ActivitiesView {...viewModel} />
 }
