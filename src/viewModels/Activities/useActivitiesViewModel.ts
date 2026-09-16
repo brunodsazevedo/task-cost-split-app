@@ -1,4 +1,5 @@
 import { createElement } from 'react'
+import { router } from 'expo-router'
 
 import { useUserStore } from '@/store/useUserStore'
 
@@ -28,6 +29,10 @@ export function useActivitiesViewModel() {
     await refetch()
   }
 
+  function handleActivityDetail(activityId: string) {
+    router.push(`/activities/${activityId}`)
+  }
+
   return {
     activities: data,
     isLoading,
@@ -35,5 +40,6 @@ export function useActivitiesViewModel() {
     handleLogout,
     handleShowCreateActivityModal,
     handleRefresh,
+    handleActivityDetail,
   }
 }

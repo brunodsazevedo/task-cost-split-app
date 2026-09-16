@@ -16,11 +16,13 @@ export function ActivityItemView({
   activityData,
   dateFormatted,
   totalAmountFormatted,
+  onActivityPress,
 }: Props) {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       className="w-full p-4 rounded-xl border gap-y-3 border-gray-600 bg-gray-700"
+      onPress={onActivityPress}
     >
       <View className="flex-row items-center justify-between">
         <Text className="font-label text-base text-gray-100">

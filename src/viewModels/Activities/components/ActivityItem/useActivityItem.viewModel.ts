@@ -4,9 +4,13 @@ import { ActivityData } from '@/interfaces/http/ActivityListResponse'
 
 interface Props {
   activityData: ActivityData
+  onActivityPress?: () => void
 }
 
-export function useActivityItemViewModel({ activityData }: Props) {
+export function useActivityItemViewModel({
+  activityData,
+  onActivityPress,
+}: Props) {
   const dateFormatted = format(parseISO(activityData.activityDate), 'dd/MM/yy')
 
   const totalAmount = activityData.totalAmountInCents / 100
@@ -17,5 +21,10 @@ export function useActivityItemViewModel({ activityData }: Props) {
     maximumFractionDigits: 2,
   })
 
-  return { activityData, dateFormatted, totalAmountFormatted }
+  return {
+    activityData,
+    dateFormatted,
+    totalAmountFormatted,
+    onActivityPress,
+  }
 }

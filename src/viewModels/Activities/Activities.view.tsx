@@ -19,6 +19,7 @@ export function ActivitiesView({
   handleLogout,
   handleShowCreateActivityModal,
   handleRefresh,
+  handleActivityDetail,
 }: Props) {
   return (
     <View className="flex-1 bg-base">
@@ -35,7 +36,12 @@ export function ActivitiesView({
             colors={[colors['green-base']]}
           />
         }
-        renderItem={({ item }) => <ActivityItem activityData={item} />}
+        renderItem={({ item }) => (
+          <ActivityItem
+            activityData={item}
+            onActivityPress={() => handleActivityDetail(item.id)}
+          />
+        )}
         ListHeaderComponent={
           <View className="py-4">
             <Text className="font-label text-xl leading-normal text-gray-100">

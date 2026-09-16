@@ -5,6 +5,7 @@ import { ActivityData } from '@/interfaces/http/ActivityListResponse'
 
 interface Props {
   activityData: ActivityData
+  onActivityPress?: () => void
 }
 
 export function ActivityItem(props: Props) {
