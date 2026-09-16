@@ -33,6 +33,7 @@ export function Input({
   onBlur,
   onFocus,
   onChangeText,
+  className,
   ...rest
 }: InputProps) {
   const {
@@ -70,7 +71,7 @@ export function Input({
     <View className={styles.container()}>
       <Pressable
         disabled={isDisabled}
-        className={styles.wrapper()}
+        className={styles.wrapper({ className })}
         onPress={handleWrapperPress}
       >
         {LeftIcon && (

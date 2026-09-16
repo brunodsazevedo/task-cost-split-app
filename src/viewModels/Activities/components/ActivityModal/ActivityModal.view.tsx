@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 import { Button } from '@/components/ui/Button'
 import { IconButton } from '@/components/ui/IconButton'
 import { InputController } from '@/components/ui/InputController'
+import { InputDatePickerController } from '@/components/ui/InputDatePickerController'
 
 import CloseIcon from '@/assets/icons/x.svg'
 import CalendarIcon from '@/assets/icons/blank-calendar.svg'
@@ -39,7 +40,7 @@ export function ActivityModalView({
         </View>
 
         <View>
-          <InputController
+          <InputDatePickerController
             control={control}
             name="activityDate"
             leftIcon={CalendarIcon}

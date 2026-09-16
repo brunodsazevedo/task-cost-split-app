@@ -24,6 +24,7 @@ export const inputVariants = tv({
 
   defaultVariants: {
     isFocused: false,
+    isDisabled: false,
   },
 })
 

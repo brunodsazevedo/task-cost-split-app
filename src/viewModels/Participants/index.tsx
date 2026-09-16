@@ -1,6 +1,6 @@
 import { View, Text, FlatList } from 'react-native'
 
-import { Header } from '@/components/Header'
+import { HeaderTab } from '@/components/HeaderTab'
 
 import { colors } from '@/theme/colors'
 
@@ -13,7 +13,7 @@ type Props = ReturnType<typeof useParticipantsViewModel>
 export function ParticipantsView({}: Props) {
   return (
     <View className="flex-1 bg-base">
-      <Header />
+      <HeaderTab />
 
       <FlatList
         data={[]}

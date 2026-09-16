@@ -1,6 +1,6 @@
 import { View, Text, FlatList, RefreshControl } from 'react-native'
 
-import { Header } from '@/components/Header'
+import { HeaderTab } from '@/components/HeaderTab'
 import { Button } from '@/components/ui/Button'
 import { ActivityItem } from './components/ActivityItem'
 
@@ -23,7 +23,7 @@ export function ActivitiesView({
 }: Props) {
   return (
     <View className="flex-1 bg-base">
-      <Header onSignout={handleLogout} />
+      <HeaderTab onSignout={handleLogout} />
 
       <FlatList
         data={activities ?? []}

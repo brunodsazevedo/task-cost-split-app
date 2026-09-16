@@ -11,7 +11,7 @@ interface Props {
   onSignout?: () => void
 }
 
-export function Header({ onSignout }: Props) {
+export function HeaderTab({ onSignout }: Props) {
   return (
     <SafeAreaView
       edges={['top']}
