@@ -5,8 +5,10 @@ import { toast } from '@/components/ui/Toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useCreateActivityMutation } from '@/queries/useCreateActivity.mutation'
+import { useActivityListQuery } from '@/queries/useActivityList.query'
 
 import { useModalStore } from '@/store/useModalStore'
+import { useUserStore } from '@/store/useUserStore'
 
 import { AppError } from '@/utils/AppError'
 
@@ -18,10 +20,16 @@ export function useActivityModalViewModel() {
   })
   const { close } = useModalStore()
   const createActivityMutation = useCreateActivityMutation({ onSuccess: close })
+  const { user } = useUserStore()
+  const { refetch } = useActivityListQuery({
+    userId: user?.id ?? '',
+  })
 
   async function onSubmit(dataForm: ActivityFormData) {
     try {
       await createActivityMutation.mutateAsync({ data: dataForm })
+
+      refetch()
 
       toast.show({
         type: 'success',

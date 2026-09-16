@@ -12,7 +12,7 @@ export function useActivitiesViewModel() {
   const { user, logout } = useUserStore()
   const { open } = useModalStore()
 
-  const { data, isLoading, isError } = useActivityListQuery({
+  const { data, isLoading, isError, refetch } = useActivityListQuery({
     userId: user?.id ?? '',
   })
 
@@ -24,11 +24,16 @@ export function useActivitiesViewModel() {
     open(createElement(ActivityModal))
   }
 
+  async function handleRefresh() {
+    await refetch()
+  }
+
   return {
     activities: data,
     isLoading,
     isError,
     handleLogout,
     handleShowCreateActivityModal,
+    handleRefresh,
   }
 }

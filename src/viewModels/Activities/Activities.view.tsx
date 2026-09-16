@@ -1,7 +1,8 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, RefreshControl } from 'react-native'
 
 import { Header } from '@/components/Header'
 import { Button } from '@/components/ui/Button'
+import { ActivityItem } from './components/ActivityItem'
 
 import BulletListIcon from '@/assets/icons/bullet-list.svg'
 import AddIcon from '@/assets/icons/add.svg'
@@ -14,8 +15,10 @@ type Props = ReturnType<typeof useActivitiesViewModel>
 
 export function ActivitiesView({
   activities,
+  isLoading,
   handleLogout,
   handleShowCreateActivityModal,
+  handleRefresh,
 }: Props) {
   return (
     <View className="flex-1 bg-base">
@@ -23,11 +26,18 @@ export function ActivitiesView({
 
       <FlatList
         data={activities ?? []}
-        contentContainerClassName="flex-1 px-6 pb-8"
-        renderItem={() => <></>}
         keyExtractor={(item) => `activity-item-${item.id}`}
+        contentContainerClassName="flex-1 px-6 pb-8 gap-y-2"
+        refreshControl={
+          <RefreshControl
+            refreshing={isLoading}
+            onRefresh={handleRefresh}
+            colors={[colors['green-base']]}
+          />
+        }
+        renderItem={({ item }) => <ActivityItem activityData={item} />}
         ListHeaderComponent={
-          <View>
+          <View className="py-4">
             <Text className="font-label text-xl leading-normal text-gray-100">
               Atividades
             </Text>
