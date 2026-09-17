@@ -1,9 +1,16 @@
-import { View, Text } from 'react-native'
+import { useLocalSearchParams } from 'expo-router'
+
+import { ActivityDetailsView } from '@/viewModels/ActivityDetails'
+
+import { useActivityDetailsViewModel } from '@/viewModels/ActivityDetails/useActivityDetails.viewModel'
+
+type RouteParams = {
+  id: string
+}
 
 export default function ActivityDetail() {
-  return (
-    <View className="flex-1 items-center justify-center">
-      <Text>[id]</Text>
-    </View>
-  )
+  const { id } = useLocalSearchParams<RouteParams>()
+  const viewModel = useActivityDetailsViewModel({ activityId: id })
+
+  return <ActivityDetailsView {...viewModel} />
 }

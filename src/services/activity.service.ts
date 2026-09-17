@@ -1,4 +1,5 @@
 import { taskCostSplitApiClient } from '@/api/taskCostSplit'
+import { ActivityDetailResponse } from '@/interfaces/http/ActivityDetailResponse'
 
 import { ActivityListRequestParams } from '@/interfaces/http/ActivityListRequestParams'
 import { ActivityListResponse } from '@/interfaces/http/ActivityListResponse'
@@ -19,6 +20,14 @@ export async function createActivity(
   const { data } = await taskCostSplitApiClient.post<ActivityResponse>(
     '/activities',
     params.data,
+  )
+
+  return data
+}
+
+export async function activityDetails(activityId: string) {
+  const { data } = await taskCostSplitApiClient.get<ActivityDetailResponse>(
+    `/activities/${activityId}`,
   )
 
   return data

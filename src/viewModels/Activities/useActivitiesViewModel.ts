@@ -7,7 +7,7 @@ import { useActivityListQuery } from '@/queries/useActivityList.query'
 
 import { useModalStore } from '@/store/useModalStore'
 
-import { ActivityModal } from './components/ActivityModal'
+import { ActivityModal } from '../../components/ModalContent/ActivityModal'
 
 export function useActivitiesViewModel() {
   const { user, logout } = useUserStore()
