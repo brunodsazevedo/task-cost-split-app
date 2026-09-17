@@ -1,5 +1,6 @@
 import { StatusBar } from 'react-native'
 import { Stack } from 'expo-router'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -30,14 +31,16 @@ function RootNavigator() {
 
 export default function RootLayout() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <StatusBar barStyle="light-content" translucent />
+    <GestureHandlerRootView className="flex-1">
+      <QueryClientProvider client={queryClient}>
+        <StatusBar barStyle="light-content" translucent />
 
-      <RootNavigator />
+        <RootNavigator />
 
-      <Modal />
+        <Modal />
 
-      <Toast config={toastConfig} />
-    </QueryClientProvider>
+        <Toast config={toastConfig} />
+      </QueryClientProvider>
+    </GestureHandlerRootView>
   )
 }
