@@ -54,10 +54,11 @@ export function BottomSheet() {
     <RNBottomSheet
       ref={bottomSheetRef}
       backgroundStyle={{
-        backgroundColor: colors['base'],
+        backgroundColor: colors.gray['700'],
         borderTopLeftRadius: 32,
         borderTopRightRadius: 32,
       }}
+      enableDynamicSizing={config?.enableDynamicSizing ?? true}
       backdropComponent={renderBackdrop}
       enablePanDownToClose={config?.enablePanDownToClose ?? true}
       index={-1}

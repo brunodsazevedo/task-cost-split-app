@@ -30,6 +30,7 @@ export function ActivityDetailsView({
   isLoading,
   handleRefetch,
   handleBack,
+  handleShowCreateExpenseModal,
 }: Props) {
   return (
     <SafeAreaView edges={['top']} className="flex-1 bg-base">
@@ -100,11 +101,24 @@ export function ActivityDetailsView({
               </Text>
 
               <View className="w-5/12">
-                <Button leftIcon={AddIcon}>Nova despesa</Button>
+                <Button
+                  leftIcon={AddIcon}
+                  onPress={handleShowCreateExpenseModal}
+                >
+                  Nova despesa
+                </Button>
               </View>
             </View>
           }
         />
+      )}
+
+      {activityDetailsData && activityDetailsData.expenses.length > 0 && (
+        <View className="absolute bottom-12 right-6 w-3/12">
+          <Button leftIcon={AddIcon} onPress={handleShowCreateExpenseModal}>
+            Nova
+          </Button>
+        </View>
       )}
     </SafeAreaView>
   )

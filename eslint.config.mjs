@@ -8,6 +8,7 @@ export default [
       globals: {
         FormData: 'readonly',
         Blob: 'readonly',
+        URLSearchParams: 'readonly',
         setTimeout: 'readonly',
         clearTimeout: 'readonly',
         setInterval: 'readonly',

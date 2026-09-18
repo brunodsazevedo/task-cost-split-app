@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { toast as Toast, toastConfig } from '@/components/ui/Toast'
 import { Modal } from '@/components/ui/Modal'
+import { BottomSheet } from '@/components/ui/BottomSheet'
 
 import { useUserStore } from '@/store/useUserStore'
 
@@ -38,6 +39,8 @@ export default function RootLayout() {
         <RootNavigator />
 
         <Modal />
+
+        <BottomSheet />
 
         <Toast config={toastConfig} />
       </QueryClientProvider>

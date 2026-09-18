@@ -1,7 +1,12 @@
+import { createElement } from 'react'
 import { router } from 'expo-router'
 import { parseISO, format } from 'date-fns'
 
+import { CreateExpense } from '@/components/ModalContent/CreateExpense'
+
 import { useActivityDetailsQuery } from '@/queries/useActivityDetails.query'
+
+import { useBottomSheetStore } from '@/store/useBottomSheetStore'
 
 interface Props {
   activityId: string
@@ -14,10 +19,11 @@ export function useActivityDetailsViewModel({ activityId }: Props) {
     refetch,
   } = useActivityDetailsQuery({ activityId })
 
-  const dateFormatted = format(
-    parseISO(activityDetailsData?.activityDate ?? ''),
-    'dd/MM/yy',
-  )
+  const { open } = useBottomSheetStore()
+
+  const dateFormatted = activityDetailsData?.activityDate
+    ? format(parseISO(activityDetailsData.activityDate), 'dd/MM/yy')
+    : ''
 
   async function handleRefetch() {
     await refetch()
@@ -27,11 +33,21 @@ export function useActivityDetailsViewModel({ activityId }: Props) {
     router.back()
   }
 
+  function handleShowCreateExpenseModal() {
+    open({
+      content: createElement(CreateExpense),
+      config: {
+        enablePanDownToClose: false,
+      },
+    })
+  }
+
   return {
     activityDetailsData,
     dateFormatted,
     isLoading,
     handleRefetch,
     handleBack,
+    handleShowCreateExpenseModal,
   }
 }

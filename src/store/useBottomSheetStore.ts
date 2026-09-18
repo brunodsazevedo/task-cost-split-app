@@ -4,6 +4,7 @@ import { create } from 'zustand'
 interface BottomSheetConfig {
   snapPoints?: string[]
   enablePanDownToClose?: boolean
+  enableDynamicSizing?: boolean
 }
 
 interface BottomSheetStore {
@@ -16,8 +17,9 @@ interface BottomSheetStore {
 }
 
 const defaultConfig: BottomSheetConfig = {
-  snapPoints: ['80%', '90%'],
+  snapPoints: undefined,
   enablePanDownToClose: true,
+  enableDynamicSizing: true,
 }
 
 export const useBottomSheetStore = create<BottomSheetStore>((set) => ({
