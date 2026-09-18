@@ -1,5 +1,5 @@
-import { createElement } from 'react'
-import { router } from 'expo-router'
+import { createElement, useCallback } from 'react'
+import { router, useFocusEffect } from 'expo-router'
 
 import { useUserStore } from '@/store/useUserStore'
 
@@ -32,6 +32,12 @@ export function useActivitiesViewModel() {
   function handleActivityDetail(activityId: string) {
     router.push(`/activities/${activityId}`)
   }
+
+  useFocusEffect(
+    useCallback(() => {
+      refetch()
+    }, [refetch]),
+  )
 
   return {
     activities: data,

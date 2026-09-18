@@ -32,3 +32,18 @@ export async function activityDetails(activityId: string) {
 
   return data
 }
+
+export async function updateActivity(
+  params: CreateUpdateActivityRequestParams,
+) {
+  const { data } = await taskCostSplitApiClient.put<ActivityResponse>(
+    `/activities/${params.queryParams?.activityId}`,
+    params.data,
+  )
+
+  return data
+}
+
+export async function deleteActivity(activityId: string) {
+  await taskCostSplitApiClient.delete(`/activities/${activityId}`)
+}

@@ -16,9 +16,11 @@ type Props = ReturnType<typeof useActivityModalViewModel>
 export function ActivityModalView({
   control,
   isLoading,
+  isLoadingDelete,
   activityData,
   handleCreateActivity,
   handleCloseModal,
+  handleDeleteActivity,
 }: Props) {
   return (
     <View className="w-full gap-y-6 p-6 rounded-xl bg-gray-700">
@@ -58,7 +60,12 @@ export function ActivityModalView({
         {activityData ? (
           <View className="flex-row items-center justify-between">
             <View>
-              <IconButton variant="danger" icon={TrashIcon} />
+              <IconButton
+                variant="danger"
+                icon={TrashIcon}
+                isLoading={isLoadingDelete}
+                onPress={handleDeleteActivity}
+              />
             </View>
 
             <View className="w-4/12">

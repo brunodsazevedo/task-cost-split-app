@@ -1,4 +1,5 @@
 import { View, Text, FlatList, RefreshControl } from 'react-native'
+import { twMerge } from 'tailwind-merge'
 
 import { HeaderTab } from '@/components/HeaderTab'
 import { Button } from '@/components/ui/Button'
@@ -28,7 +29,10 @@ export function ActivitiesView({
       <FlatList
         data={activities ?? []}
         keyExtractor={(item) => `activity-item-${item.id}`}
-        contentContainerClassName="flex-1 px-6 pb-8 gap-y-2"
+        contentContainerClassName={twMerge(
+          'px-6 pb-12 gap-y-2',
+          activities && activities.length === 0 && 'flex-1',
+        )}
         refreshControl={
           <RefreshControl
             refreshing={isLoading}
