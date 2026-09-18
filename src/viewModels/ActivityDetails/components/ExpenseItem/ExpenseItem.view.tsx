@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 
 import { Divider } from '@/components/ui/Divider'
 
@@ -6,7 +6,12 @@ import { useExpenseItemViewModel } from './useExpenseItem.viewModel'
 
 type Props = ReturnType<typeof useExpenseItemViewModel>
 
-export function ExpenseItemView({ expenseData }: Props) {
+export function ExpenseItemView({
+  expenseData,
+  expenseAmountFormatted,
+  expenseValuePerPersonFormatted,
+  participantsAvatarUrls,
+}: Props) {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
@@ -19,16 +24,29 @@ export function ExpenseItemView({ expenseData }: Props) {
 
         <View className="items-end">
           <Text className="font-label text-sm leading-normal text-gray-200">
-            R$ 2000
+            {expenseAmountFormatted}
           </Text>
 
           <Text className="font-body text-xs text-gray-300">
-            R$ 1.100 / pessoa
+            {expenseValuePerPersonFormatted} / pessoa
           </Text>
         </View>
       </View>
 
       <Divider />
+
+      <View className="flex-row items-center justify-between">
+        <View className="flex-row items-center">
+          {participantsAvatarUrls?.map((url, index) => (
+            <Image
+              key={index}
+              alt={`Avatar do participante ${index}`}
+              source={{ uri: url.avatarUrl }}
+              className="h-7 w-7 -mr-1.5 rounded-full border border-gray-700"
+            />
+          ))}
+        </View>
+      </View>
     </TouchableOpacity>
   )
 }
