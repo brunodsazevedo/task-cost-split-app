@@ -4,6 +4,7 @@ import {
   Text,
   TouchableOpacity,
   TouchableOpacityProps,
+  View,
 } from 'react-native'
 import { SvgProps } from 'react-native-svg'
 
@@ -50,7 +51,9 @@ export function Button({
       {...rest}
     >
       {isLoading ? (
-        <ActivityIndicator size="small" color={iconColor} />
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator size="small" color={iconColor} />
+        </View>
       ) : (
         <>
           {LeftIcon && <LeftIcon height={24} width={24} color={iconColor} />}

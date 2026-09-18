@@ -49,8 +49,8 @@ export function ActivityDetailsView({
               colors={[colors['green-base']]}
             />
           }
-          contentContainerClassName="flex-1 px-6 pt-4 pb-8"
-          renderItem={() => <ExpenseItem />}
+          contentContainerClassName="flex-1 px-6 pt-4 pb-8 gap-y-2"
+          renderItem={({ item }) => <ExpenseItem expenseData={item} />}
           ListHeaderComponent={
             <View className="flex-row items-start justify-between py-4">
               <View className="gap-y-3">

@@ -2,14 +2,14 @@ import { UserData } from '@/interfaces/http/UserListResponse'
 
 export interface ActivityDetailResponse {
   activityDate: string
-  expenses: Expense[]
+  expenses: ExpenseData[]
   id: string
   participants: UserData[]
   name: string
   totalAmountInCents: number
 }
 
-interface Expense {
+export interface ExpenseData {
   participants: Participant[]
   payerName: string
   amountInCents: number
