@@ -35,7 +35,10 @@ export function useActivityDetailsViewModel({ activityId }: Props) {
 
   function handleShowCreateExpenseModal() {
     open({
-      content: createElement(CreateExpense),
+      content: createElement(CreateExpense, {
+        activityId,
+        onSuccess: () => handleRefetch(),
+      }),
       config: {
         enablePanDownToClose: false,
       },

@@ -17,6 +17,7 @@ type Props = ReturnType<typeof useCreateExpenseViewModel>
 export function CreateExpenseView({
   control,
   participantsOptions,
+  isLoading,
   handleClose,
   handleCreateExpense,
 }: Props) {
@@ -57,7 +58,9 @@ export function CreateExpenseView({
 
         <View className="flex-1 justify-end">
           <View>
-            <Button onPress={handleCreateExpense}>Salvar</Button>
+            <Button isLoading={isLoading} onPress={handleCreateExpense}>
+              Salvar
+            </Button>
           </View>
         </View>
       </SafeAreaView>
