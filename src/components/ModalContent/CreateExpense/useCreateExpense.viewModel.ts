@@ -29,13 +29,9 @@ export function useCreateExpenseViewModel({ activityId, onSuccess }: Props) {
     resolver: zodResolver(createExpenseScheme),
   })
   const { close } = useBottomSheetStore()
-  const { data: usersData } = useGetUserListQuery()
+  const { data: participantsData } = useGetUserListQuery()
   const { user } = useUserStore()
   const createExpenseMutation = useCreateExpenseMutation()
-
-  const participantsData = usersData?.filter(
-    (userData) => userData.id !== user?.id,
-  )
 
   const participantsOptions: SelectOptionData[] = participantsData?.map(
     (user) => ({
