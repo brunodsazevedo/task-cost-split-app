@@ -7,6 +7,7 @@ import { InputDatePickerController } from '@/components/ui/InputDatePickerContro
 
 import CloseIcon from '@/assets/icons/x.svg'
 import CalendarIcon from '@/assets/icons/blank-calendar.svg'
+import TrashIcon from '@/assets/icons/trash.svg'
 
 import { useActivityModalViewModel } from './useActivityModalViewModel'
 
@@ -14,13 +15,17 @@ type Props = ReturnType<typeof useActivityModalViewModel>
 
 export function ActivityModalView({
   control,
+  isLoading,
+  activityData,
   handleCreateActivity,
   handleCloseModal,
 }: Props) {
   return (
     <View className="w-full gap-y-6 p-6 rounded-xl bg-gray-700">
       <View className="flex-row items-center justify-between">
-        <Text className="font-label text-lg text-gray-100">Nova atividade</Text>
+        <Text className="font-label text-lg text-gray-100">
+          {activityData ? 'Editar atividade' : 'Nova atividade'}
+        </Text>
 
         <IconButton
           icon={CloseIcon}
@@ -50,7 +55,23 @@ export function ActivityModalView({
       </View>
 
       <View>
-        <Button onPress={handleCreateActivity}>Criar</Button>
+        {activityData ? (
+          <View className="flex-row items-center justify-between">
+            <View>
+              <IconButton variant="danger" icon={TrashIcon} />
+            </View>
+
+            <View className="w-4/12">
+              <Button isLoading={isLoading} onPress={handleCreateActivity}>
+                Salvar
+              </Button>
+            </View>
+          </View>
+        ) : (
+          <Button isLoading={isLoading} onPress={handleCreateActivity}>
+            Salvar
+          </Button>
+        )}
       </View>
     </View>
   )

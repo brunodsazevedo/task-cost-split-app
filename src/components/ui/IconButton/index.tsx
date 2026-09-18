@@ -1,5 +1,9 @@
 import { ElementType } from 'react'
-import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
+import {
+  ActivityIndicator,
+  TouchableOpacity,
+  TouchableOpacityProps,
+} from 'react-native'
 import { SvgProps } from 'react-native-svg'
 
 import { colors } from '@/theme/colors'
@@ -43,7 +47,11 @@ export function IconButton({
       className={styles.container({ className })}
       {...rest}
     >
-      <Icon height={24} width={24} color={iconColor} />
+      {isLoading ? (
+        <ActivityIndicator size="small" color={iconColor} />
+      ) : (
+        <Icon height={20} width={20} color={iconColor} />
+      )}
     </TouchableOpacity>
   )
 }

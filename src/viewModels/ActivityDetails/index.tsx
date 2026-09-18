@@ -10,6 +10,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { Button } from '@/components/ui/Button'
 import { IconButton } from '@/components/ui/IconButton'
+import { ExpenseItem } from './components/ExpenseItem'
 
 import { colors } from '@/theme/colors'
 
@@ -20,7 +21,6 @@ import PieChartIcon from '@/assets/icons/pie-chart.svg'
 import AddIcon from '@/assets/icons/add.svg'
 
 import { useActivityDetailsViewModel } from './useActivityDetails.viewModel'
-import { ExpenseItem } from './components/ExpenseItem'
 
 type Props = ReturnType<typeof useActivityDetailsViewModel>
 
@@ -31,6 +31,7 @@ export function ActivityDetailsView({
   handleRefetch,
   handleBack,
   handleShowCreateExpenseModal,
+  handleShowEditActivityModal,
 }: Props) {
   return (
     <SafeAreaView edges={['top']} className="flex-1 bg-base">
@@ -88,7 +89,11 @@ export function ActivityDetailsView({
               </View>
 
               <View>
-                <IconButton variant="secondary" icon={PencilIcon} />
+                <IconButton
+                  variant="secondary"
+                  icon={PencilIcon}
+                  onPress={handleShowEditActivityModal}
+                />
               </View>
             </View>
           }

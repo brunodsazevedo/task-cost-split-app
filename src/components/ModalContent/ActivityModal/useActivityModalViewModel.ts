@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import { formatISO, parseISO } from 'date-fns'
 
 import { toast } from '@/components/ui/Toast'
 
@@ -12,11 +13,24 @@ import { useUserStore } from '@/store/useUserStore'
 
 import { AppError } from '@/utils/AppError'
 
+import { ActivityDetailResponse } from '@/interfaces/http/ActivityDetailResponse'
+
 import { activityScheme, ActivityFormData } from './activity.scheme'
 
-export function useActivityModalViewModel() {
+type Props = {
+  activityData?: ActivityDetailResponse
+  onCreateActivity: () => void
+}
+
+export function useActivityModalViewModel({ activityData }: Props) {
   const { control, handleSubmit } = useForm({
     resolver: zodResolver(activityScheme),
+    defaultValues: {
+      title: activityData?.name ?? '',
+      activityDate: !activityData?.activityDate
+        ? undefined
+        : parseISO(activityData.activityDate),
+    },
   })
   const { close } = useModalStore()
   const createActivityMutation = useCreateActivityMutation({ onSuccess: close })
@@ -26,8 +40,13 @@ export function useActivityModalViewModel() {
   })
 
   async function onSubmit(dataForm: ActivityFormData) {
+    const data = {
+      ...dataForm,
+      activityDate: formatISO(dataForm.activityDate),
+    }
+
     try {
-      await createActivityMutation.mutateAsync({ data: dataForm })
+      await createActivityMutation.mutateAsync({ data })
 
       refetch()
 
@@ -58,6 +77,7 @@ export function useActivityModalViewModel() {
   return {
     control,
     isLoading: createActivityMutation.isPending,
+    activityData,
     handleCreateActivity,
     handleCloseModal,
   }

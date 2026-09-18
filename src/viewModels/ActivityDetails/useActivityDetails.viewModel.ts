@@ -7,6 +7,11 @@ import { CreateExpense } from '@/components/ModalContent/CreateExpense'
 import { useActivityDetailsQuery } from '@/queries/useActivityDetails.query'
 
 import { useBottomSheetStore } from '@/store/useBottomSheetStore'
+import {
+  ActivityModal,
+  ActivityModalProps,
+} from '@/components/ModalContent/ActivityModal'
+import { useModalStore } from '@/store/useModalStore'
 
 interface Props {
   activityId: string
@@ -19,7 +24,8 @@ export function useActivityDetailsViewModel({ activityId }: Props) {
     refetch,
   } = useActivityDetailsQuery({ activityId })
 
-  const { open } = useBottomSheetStore()
+  const { open: openBottomSheet } = useBottomSheetStore()
+  const { open: openModal } = useModalStore()
 
   const dateFormatted = activityDetailsData?.activityDate
     ? format(parseISO(activityDetailsData.activityDate), 'dd/MM/yy')
@@ -33,8 +39,16 @@ export function useActivityDetailsViewModel({ activityId }: Props) {
     router.back()
   }
 
+  function handleShowEditActivityModal() {
+    openModal(
+      createElement<ActivityModalProps>(ActivityModal, {
+        activityData: activityDetailsData,
+      }),
+    )
+  }
+
   function handleShowCreateExpenseModal() {
-    open({
+    openBottomSheet({
       content: createElement(CreateExpense, {
         activityId,
         onSuccess: () => handleRefetch(),
@@ -52,5 +66,6 @@ export function useActivityDetailsViewModel({ activityId }: Props) {
     handleRefetch,
     handleBack,
     handleShowCreateExpenseModal,
+    handleShowEditActivityModal,
   }
 }
