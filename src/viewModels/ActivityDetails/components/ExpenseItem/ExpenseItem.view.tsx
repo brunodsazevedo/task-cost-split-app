@@ -11,11 +11,12 @@ export function ExpenseItemView({
   expenseAmountFormatted,
   expenseValuePerPersonFormatted,
   participantsAvatarUrls,
+  paymentStatus,
 }: Props) {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      className="w-full rounded-xl p-4 gap-y-3 border border-gray-600 bg-gray-700"
+      className="w-full rounded-2xl p-4 gap-y-4 border border-gray-600 bg-gray-700"
     >
       <View className="flex-row items-start justify-between">
         <Text className="font-label text-base leading-normal text-gray-100">
@@ -45,6 +46,18 @@ export function ExpenseItemView({
               className="h-7 w-7 -mr-1.5 rounded-full border border-gray-700"
             />
           ))}
+        </View>
+
+        <View
+          className="items-center justify-center px-2 py-1 rounded-lg"
+          style={{ backgroundColor: paymentStatus.backgroundColor }}
+        >
+          <Text
+            className="font-label text-sm text-center leading-normal"
+            style={{ color: paymentStatus.textColor }}
+          >
+            {paymentStatus.textLabel}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>

@@ -1,4 +1,5 @@
 import { buildAvatarUrl } from '@/utils/buildAvatarUrl'
+import { getStatusPaymentStyles } from '@/utils/getStatusPaymentStyles'
 
 import { ExpenseData } from '@/interfaces/http/ActivityDetailResponse'
 
@@ -33,10 +34,15 @@ export function useExpenseItemViewModel({ expenseData }: Props) {
     }),
   )
 
+  const paymentStatus = getStatusPaymentStyles(
+    expenseData.paymentStatus ?? 'pending',
+  )
+
   return {
     expenseData,
     expenseAmountFormatted,
     expenseValuePerPersonFormatted,
     participantsAvatarUrls,
+    paymentStatus,
   }
 }
