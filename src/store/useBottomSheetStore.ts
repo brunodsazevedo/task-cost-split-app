@@ -5,6 +5,7 @@ interface BottomSheetConfig {
   snapPoints?: string[]
   enablePanDownToClose?: boolean
   enableDynamicSizing?: boolean
+  onBackdropPress?: () => void
 }
 
 interface BottomSheetStore {

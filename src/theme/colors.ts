@@ -8,6 +8,9 @@ export const colors = {
   'green-base': '#30A65D',
   'green-light': '#71D697',
 
+  'success-light': '#41D0D8',
+  'success-dark': '#0A2324',
+
   section: '#41D0D8',
 
   base: '#0B0B0E',

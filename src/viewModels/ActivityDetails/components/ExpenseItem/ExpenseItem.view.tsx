@@ -12,11 +12,13 @@ export function ExpenseItemView({
   expenseValuePerPersonFormatted,
   participantsAvatarUrls,
   paymentStatus,
+  onPress,
 }: Props) {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
       className="w-full rounded-2xl p-4 gap-y-4 border border-gray-600 bg-gray-700"
+      onPress={onPress}
     >
       <View className="flex-row items-start justify-between">
         <Text className="font-label text-base leading-normal text-gray-100">

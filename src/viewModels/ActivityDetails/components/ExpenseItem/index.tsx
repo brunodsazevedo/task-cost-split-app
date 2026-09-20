@@ -5,10 +5,11 @@ import { ExpenseData } from '@/interfaces/http/ActivityDetailResponse'
 
 type Props = {
   expenseData: ExpenseData
+  onPress?: () => void
 }
 
-export function ExpenseItem({ expenseData }: Props) {
-  const viewModel = useExpenseItemViewModel({ expenseData })
+export function ExpenseItem({ expenseData, onPress }: Props) {
+  const viewModel = useExpenseItemViewModel({ expenseData, onPress })
 
   return <ExpenseItemView {...viewModel} />
 }

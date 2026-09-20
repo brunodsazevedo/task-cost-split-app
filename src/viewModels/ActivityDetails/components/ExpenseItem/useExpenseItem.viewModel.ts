@@ -5,9 +5,10 @@ import { ExpenseData } from '@/interfaces/http/ActivityDetailResponse'
 
 type Props = {
   expenseData: ExpenseData
+  onPress?: () => void
 }
 
-export function useExpenseItemViewModel({ expenseData }: Props) {
+export function useExpenseItemViewModel({ expenseData, onPress }: Props) {
   const expenseAmount = expenseData.amountInCents / 100
   const expenseValuePerPerson = expenseAmount / expenseData.participants.length
 
@@ -44,5 +45,6 @@ export function useExpenseItemViewModel({ expenseData }: Props) {
     expenseValuePerPersonFormatted,
     participantsAvatarUrls,
     paymentStatus,
+    onPress,
   }
 }

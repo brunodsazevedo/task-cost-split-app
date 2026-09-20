@@ -36,6 +36,7 @@ export function ActivityDetailsView({
   handleBack,
   handleShowCreateExpenseModal,
   handleShowEditActivityModal,
+  handleShowExpenseDetailsModal,
 }: Props) {
   return (
     <SafeAreaView edges={['top']} className="flex-1 bg-base">
@@ -150,7 +151,12 @@ export function ActivityDetailsView({
                 )}
             </View>
           }
-          renderItem={({ item }) => <ExpenseItem expenseData={item} />}
+          renderItem={({ item }) => (
+            <ExpenseItem
+              expenseData={item}
+              onPress={() => handleShowExpenseDetailsModal(item.id)}
+            />
+          )}
           ListEmptyComponent={
             <View className="flex-1 items-center justify-center gap-y-4">
               <PieChartIcon height={24} width={24} color={colors.gray[400]} />

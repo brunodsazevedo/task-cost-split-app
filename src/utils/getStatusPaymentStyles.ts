@@ -2,8 +2,8 @@ import { colors } from '@/theme/colors'
 
 const statusPaymentStyles = {
   paid: {
-    backgroundColor: colors['green-base'],
-    textColor: colors['green-light'],
+    backgroundColor: colors['success-dark'],
+    textColor: colors['success-light'],
     textLabel: 'Pago',
   },
   pending: {

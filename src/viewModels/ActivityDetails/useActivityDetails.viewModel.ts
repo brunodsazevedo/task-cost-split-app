@@ -2,11 +2,12 @@ import { createElement, useCallback } from 'react'
 import { router, useFocusEffect } from 'expo-router'
 import { parseISO, format } from 'date-fns'
 
-import { CreateExpense } from '@/components/ModalContent/CreateExpense'
 import {
   ActivityModal,
   ActivityModalProps,
 } from '@/components/ModalContent/ActivityModal'
+import { CreateExpense } from '@/components/ModalContent/CreateExpense'
+import { ExpenseDetails } from '@/components/ModalContent/ExpenseDetails'
 
 import { useActivityDetailsQuery } from '@/queries/useActivityDetails.query'
 
@@ -75,6 +76,12 @@ export function useActivityDetailsViewModel({ activityId }: Props) {
     })
   }
 
+  function handleShowExpenseDetailsModal(expenseId: string) {
+    openBottomSheet({
+      content: createElement(ExpenseDetails, { expenseId }),
+    })
+  }
+
   useFocusEffect(
     useCallback(() => {
       refetch()
@@ -92,5 +99,6 @@ export function useActivityDetailsViewModel({ activityId }: Props) {
     handleBack,
     handleShowCreateExpenseModal,
     handleShowEditActivityModal,
+    handleShowExpenseDetailsModal,
   }
 }
