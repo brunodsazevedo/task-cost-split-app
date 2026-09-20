@@ -37,3 +37,7 @@ export async function updateExpensePaymentToggle({
 
   return data
 }
+
+export async function deleteExpense(expenseId: string) {
+  await taskCostSplitApiClient.delete(`/expenses/${expenseId}`)
+}

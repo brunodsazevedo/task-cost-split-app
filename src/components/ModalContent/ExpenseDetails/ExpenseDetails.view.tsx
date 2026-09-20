@@ -19,10 +19,12 @@ type Props = ReturnType<typeof useExpenseDetailsViewModel>
 export function ExpenseDetailsView({
   expenseDetailsData,
   isExpenseDetailsLoading,
+  isDeleteExpenseLoading,
   amountFormatted,
   statusConsolidated,
   statusPaymentStyles,
   handleClose,
+  handleDeleteExpense,
 }: Props) {
   return (
     <View className="flex-1">
@@ -70,7 +72,12 @@ export function ExpenseDetailsView({
 
           <View className="flex-row items-center justify-between">
             <View>
-              <IconButton icon={TrashIcon} variant="danger" />
+              <IconButton
+                icon={TrashIcon}
+                variant="danger"
+                isLoading={isDeleteExpenseLoading}
+                onPress={handleDeleteExpense}
+              />
             </View>
 
             <View className="w-32">

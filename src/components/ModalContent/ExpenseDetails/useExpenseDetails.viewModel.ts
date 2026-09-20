@@ -1,18 +1,28 @@
+import { useGlobalSearchParams } from 'expo-router'
+
+import { toast } from '@/components/ui/Toast'
+
+import { useDeleteExpenseMutation } from '@/queries/useDeleteExpense.mutation'
 import { useGetExpenseDetailsQuery } from '@/queries/useGetExpenseDetails.query'
 
 import { useBottomSheetStore } from '@/store/useBottomSheetStore'
 
 import { getConsolidatedPaymentStatus } from '@/utils/getConsolidatedPaymentStatus'
 import { getStatusPaymentStyles } from '@/utils/getStatusPaymentStyles'
+import { AppError } from '@/utils/AppError'
 
 type Props = {
   expenseId: string
 }
 
 export function useExpenseDetailsViewModel({ expenseId }: Props) {
-  const { close } = useBottomSheetStore()
+  const routeParams = useGlobalSearchParams<{ id: string }>()
   const { data: expenseDetailsData, isLoading: isExpenseDetailsLoading } =
     useGetExpenseDetailsQuery({ expenseId })
+  const deleteExpenseMutation = useDeleteExpenseMutation({
+    activityId: routeParams.id,
+  })
+  const { close } = useBottomSheetStore()
 
   const statusConsolidated = getConsolidatedPaymentStatus(
     expenseDetailsData?.participants ?? [],
@@ -32,12 +42,37 @@ export function useExpenseDetailsViewModel({ expenseId }: Props) {
     close()
   }
 
+  async function handleDeleteExpense() {
+    try {
+      await deleteExpenseMutation.mutateAsync(expenseId)
+
+      close()
+
+      toast.show({
+        type: 'success',
+        text1: 'Despesa deletada com sucesso!',
+      })
+    } catch (error) {
+      const isAppError = error instanceof AppError
+      const message = isAppError
+        ? error.message
+        : 'Ocorreu um erro ao deletar a despesa. Tente novamente mais tarde.'
+
+      toast.show({
+        type: 'error',
+        text1: message,
+      })
+    }
+  }
+
   return {
     isExpenseDetailsLoading,
+    isDeleteExpenseLoading: deleteExpenseMutation.isPending,
     expenseDetailsData,
     amountFormatted,
     statusConsolidated,
     statusPaymentStyles,
     handleClose,
+    handleDeleteExpense,
   }
 }
