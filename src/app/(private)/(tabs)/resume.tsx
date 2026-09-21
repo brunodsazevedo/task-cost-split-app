@@ -1,17 +1,8 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-
-import { useUserStore } from '@/store/useUserStore'
+import { ResumeView } from '@/viewModels/Resume/Resume.view'
+import { useResumeViewModel } from '@/viewModels/Resume/useResume.viewModel'
 
 export default function Resume() {
-  const { logout } = useUserStore()
+  const viewModel = useResumeViewModel()
 
-  return (
-    <View className="flex-1 items-center justify-center">
-      <Text>resume</Text>
-
-      <TouchableOpacity onPress={logout}>
-        <Text>Logout</Text>
-      </TouchableOpacity>
-    </View>
-  )
+  return <ResumeView {...viewModel} />
 }
