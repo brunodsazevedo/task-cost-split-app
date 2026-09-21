@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { InputController } from '@/components/ui/InputController'
@@ -21,62 +21,60 @@ export function SigninView({
   handleSignUp,
 }: SigninViewProps) {
   return (
-    <ScrollView contentContainerClassName="bg-base">
+    <View className="flex-1 bg-base">
       <KeyboardContainer>
-        <View className="bg-base">
-          <View className="items-center justify-center gap-4 h-[362px]">
-            <LogoSvg height={64} width={64} />
+        <View className="items-center justify-center gap-4 h-[362px]">
+          <LogoSvg height={64} width={64} />
 
-            <LogoNameSvg />
+          <LogoNameSvg />
+        </View>
+
+        <SafeAreaView
+          edges={['bottom']}
+          className="px-8 py-10 gap-8 rounded-t-3xl bg-gray-700"
+        >
+          <Text className="font-label text-xl text-center text-gray-100">
+            Entre no app
+          </Text>
+
+          <View className="gap-3">
+            <View>
+              <InputController
+                control={control}
+                name="email"
+                placeholder="E-mail"
+                leftIcon={EmailIcon}
+              />
+            </View>
+
+            <View>
+              <InputController
+                control={control}
+                name="password"
+                placeholder="Senha"
+                leftIcon={AsteriskIcon}
+                secureTextEntry
+              />
+            </View>
           </View>
 
-          <SafeAreaView
-            edges={['bottom']}
-            className="px-8 py-10 gap-8 rounded-t-3xl bg-gray-700"
-          >
-            <Text className="font-label text-xl text-center text-gray-100">
-              Entre no app
+          <Button onPress={handleSignIn}>Entrar</Button>
+
+          <View className="justify-end gap-y-4">
+            <View className="mb-8">
+              <Divider />
+            </View>
+
+            <Text className="font-body text-sm text-center text-gray-200">
+              Ainda não tem cadastro?
             </Text>
 
-            <View className="gap-3">
-              <View>
-                <InputController
-                  control={control}
-                  name="email"
-                  placeholder="E-mail"
-                  leftIcon={EmailIcon}
-                />
-              </View>
-
-              <View>
-                <InputController
-                  control={control}
-                  name="password"
-                  placeholder="Senha"
-                  leftIcon={AsteriskIcon}
-                  secureTextEntry
-                />
-              </View>
-            </View>
-
-            <Button onPress={handleSignIn}>Entrar</Button>
-
-            <View className="justify-end gap-y-4">
-              <View className="mb-8">
-                <Divider />
-              </View>
-
-              <Text className="font-body text-sm text-center text-gray-200">
-                Ainda não tem cadastro?
-              </Text>
-
-              <Button variant="secondary" onPress={handleSignUp}>
-                Criar conta
-              </Button>
-            </View>
-          </SafeAreaView>
-        </View>
+            <Button variant="secondary" onPress={handleSignUp}>
+              Criar conta
+            </Button>
+          </View>
+        </SafeAreaView>
       </KeyboardContainer>
-    </ScrollView>
+    </View>
   )
 }
