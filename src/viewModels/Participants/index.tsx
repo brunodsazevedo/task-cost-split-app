@@ -1,6 +1,7 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList, RefreshControl } from 'react-native'
 
 import { HeaderTab } from '@/components/HeaderTab'
+import { ParticipantItem } from './components/ParticipantItem'
 
 import { colors } from '@/theme/colors'
 
@@ -10,15 +11,23 @@ import UserGroupIcon from '@/assets/icons/user-multiple-group.svg'
 
 type Props = ReturnType<typeof useParticipantsViewModel>
 
-export function ParticipantsView({}: Props) {
+export function ParticipantsView({ participants, isLoading, refetch }: Props) {
   return (
     <View className="flex-1 bg-base">
       <HeaderTab />
 
       <FlatList
-        data={[]}
+        data={participants}
+        keyExtractor={(item) => `${item.id}`}
         contentContainerClassName="flex-1 px-6 pt-6 pb-8 gap-y-2"
-        renderItem={() => <></>}
+        refreshControl={
+          <RefreshControl
+            refreshing={isLoading}
+            onRefresh={refetch}
+            colors={[colors['green-base']]}
+          />
+        }
+        renderItem={({ item }) => <ParticipantItem data={item} />}
         ListHeaderComponent={
           <View className="gap-y-1">
             <Text className="font-label text-xl leading-normal text-gray-100">
