@@ -1,4 +1,6 @@
-import { createElement, useMemo, useState } from 'react'
+/* eslint-disable react-hooks-extra/no-direct-set-state-in-use-effect */
+/* eslint-disable react-hooks/set-state-in-effect */
+import { createElement, useEffect, useMemo, useState } from 'react'
 
 import { useModalStore } from '@/store/useModalStore'
 
@@ -22,6 +24,15 @@ export function useSelectViewModel({
   const [selectedIds, setSelectedIds] = useState<string[]>([])
 
   const { open, close } = useModalStore()
+
+  useEffect(() => {
+    const initialSelectedIds = options
+      .filter((option) => option.selected)
+      .map((option) => option.id)
+
+    setSelectedIds(initialSelectedIds)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const data = useMemo(
     () =>

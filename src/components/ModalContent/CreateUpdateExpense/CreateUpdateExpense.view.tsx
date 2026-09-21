@@ -10,11 +10,12 @@ import { SelectController } from '@/components/ui/SelectController'
 import UsersGroupIcon from '@/assets/icons/user-multiple-group.svg'
 import CoinIcon from '@/assets/icons/dollar-coin.svg'
 
-import { useCreateExpenseViewModel } from './useCreateExpense.viewModel'
+import { useCreateUpdateExpenseViewModel } from './useCreateUpdateExpense.viewModel'
 
-type Props = ReturnType<typeof useCreateExpenseViewModel>
+type Props = ReturnType<typeof useCreateUpdateExpenseViewModel>
 
-export function CreateExpenseView({
+export function CreateUpdateExpenseView({
+  expenseData,
   control,
   participantsOptions,
   isLoading,
@@ -23,7 +24,10 @@ export function CreateExpenseView({
 }: Props) {
   return (
     <View className="">
-      <HeaderModal title="Criar Despesa" onClose={handleClose} />
+      <HeaderModal
+        title={expenseData ? 'Editar Despesa' : 'Criar Despesa'}
+        onClose={handleClose}
+      />
 
       <SafeAreaView edges={['bottom']} className="gap-y-8 px-6 pb-6">
         <View className="gap-y-2">

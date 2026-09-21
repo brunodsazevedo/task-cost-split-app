@@ -3,10 +3,11 @@ import { useExpenseDetailsViewModel } from './useExpenseDetails.viewModel'
 
 type Props = {
   expenseId: string
+  onSuccess?: () => void
 }
 
-export function ExpenseDetails({ expenseId }: Props) {
-  const viewModel = useExpenseDetailsViewModel({ expenseId })
+export function ExpenseDetails({ expenseId, onSuccess }: Props) {
+  const viewModel = useExpenseDetailsViewModel({ expenseId, onSuccess })
 
   return <ExpenseDetailsView {...viewModel} />
 }

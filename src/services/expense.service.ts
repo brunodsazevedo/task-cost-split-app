@@ -5,6 +5,8 @@ import { CreateExpenseResponse } from '@/interfaces/http/CreateExpenseResponse'
 import { ExpenseDetailsResponse } from '@/interfaces/http/ExpenseDetailsResponse'
 import { UpdateExpensePaymentToggleRequestParams } from '@/interfaces/http/UpdateExpensePaymentToggleRequestParams'
 import { UpdateExpensePaymentToggleResponse } from '@/interfaces/http/UpdateExpensePaymentToggleResponse'
+import { UpdateExpenseRequestData } from '@/interfaces/http/UpdateExpenseRequestData'
+import { UpdateExpenseResponse } from '@/interfaces/http/UpdateExpenseResponse'
 
 export async function createExpense({
   params,
@@ -40,4 +42,17 @@ export async function updateExpensePaymentToggle({
 
 export async function deleteExpense(expenseId: string) {
   await taskCostSplitApiClient.delete(`/expenses/${expenseId}`)
+}
+
+export async function updateExpense({
+  queryParams,
+  data,
+}: UpdateExpenseRequestData) {
+  const { data: responseData } =
+    await taskCostSplitApiClient.put<UpdateExpenseResponse>(
+      `/expenses/${queryParams.expenseId}`,
+      data,
+    )
+
+  return responseData
 }

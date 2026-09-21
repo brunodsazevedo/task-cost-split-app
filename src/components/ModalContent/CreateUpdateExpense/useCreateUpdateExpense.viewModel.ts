@@ -6,6 +6,7 @@ import { toast } from '@/components/ui/Toast'
 
 import { useGetUserListQuery } from '@/queries/useGetUserList.query'
 import { useCreateExpenseMutation } from '@/queries/useCreateExpense.mutation'
+import { useUpdateExpenseMutation } from '@/queries/useUpdateExpense.mutation'
 
 import { useBottomSheetStore } from '@/store/useBottomSheetStore'
 import { useUserStore } from '@/store/useUserStore'
@@ -14,6 +15,8 @@ import { colors } from '@/theme/colors'
 
 import { AppError } from '@/utils/AppError'
 
+import { ExpenseDetailsResponse } from '@/interfaces/http/ExpenseDetailsResponse'
+
 import {
   createExpenseScheme,
   CreateExpenseFormData,
@@ -21,24 +24,38 @@ import {
 
 type Props = {
   activityId: string
+  expenseData?: ExpenseDetailsResponse
   onSuccess?: () => void
 }
 
-export function useCreateExpenseViewModel({ activityId, onSuccess }: Props) {
+export function useCreateUpdateExpenseViewModel({
+  activityId,
+  onSuccess,
+  expenseData,
+}: Props) {
   const { control, handleSubmit } = useForm<CreateExpenseFormData>({
     resolver: zodResolver(createExpenseScheme),
+    defaultValues: {
+      title: expenseData?.name ?? '',
+      amountInCents: expenseData ? expenseData.amountInCents / 100 : 0,
+      participantsIds: expenseData?.participants.map((p) => p.userId) ?? [],
+    },
   })
   const { close } = useBottomSheetStore()
   const { data: participantsData } = useGetUserListQuery()
   const { user } = useUserStore()
   const createExpenseMutation = useCreateExpenseMutation()
+  const updateExpenseMutation = useUpdateExpenseMutation()
 
   const participantsOptions: SelectOptionData[] = participantsData?.map(
     (user) => ({
       id: user.id,
       label: user.name,
       imageURL: buildImageUrl(user.name),
-      selected: false,
+      selected:
+        expenseData?.participants.some(
+          (participant) => participant.userId === user.id,
+        ) ?? false,
     }),
   )
 
@@ -69,11 +86,21 @@ export function useCreateExpenseViewModel({ activityId, onSuccess }: Props) {
     }
 
     try {
-      await createExpenseMutation.mutateAsync({ data, params: { activityId } })
-
-      close()
+      if (expenseData) {
+        await updateExpenseMutation.mutateAsync({
+          data,
+          queryParams: { expenseId: expenseData.id },
+        })
+      } else {
+        await createExpenseMutation.mutateAsync({
+          data,
+          params: { activityId },
+        })
+      }
 
       onSuccess?.()
+
+      close()
 
       toast.show({
         type: 'success',
@@ -94,6 +121,7 @@ export function useCreateExpenseViewModel({ activityId, onSuccess }: Props) {
   }
 
   return {
+    expenseData,
     control,
     participantsOptions,
     isLoading: createExpenseMutation.isPending,

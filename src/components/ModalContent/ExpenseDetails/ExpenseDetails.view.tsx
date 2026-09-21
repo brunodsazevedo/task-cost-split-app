@@ -25,6 +25,7 @@ export function ExpenseDetailsView({
   statusPaymentStyles,
   handleClose,
   handleDeleteExpense,
+  handleShowUpdateExpenseModal,
 }: Props) {
   return (
     <View className="flex-1">
@@ -81,7 +82,11 @@ export function ExpenseDetailsView({
             </View>
 
             <View className="w-32">
-              <Button variant="secondary" leftIcon={PencilIcon}>
+              <Button
+                variant="secondary"
+                leftIcon={PencilIcon}
+                onPress={handleShowUpdateExpenseModal}
+              >
                 Editar
               </Button>
             </View>

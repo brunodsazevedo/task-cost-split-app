@@ -56,7 +56,7 @@ export function ActivityDetailsView({
             />
           }
           contentContainerClassName={twMerge(
-            'px-6 pt-4 pb-10 gap-y-2',
+            'px-6 pt-4 pb-28 gap-y-2',
             activityDetailsData?.expenses.length === 0 && 'flex-1',
           )}
           ListHeaderComponent={

@@ -1,6 +1,8 @@
+import { createElement } from 'react'
 import { useGlobalSearchParams } from 'expo-router'
 
 import { toast } from '@/components/ui/Toast'
+import { CreateUpdateExpense } from '@/components/ModalContent/CreateUpdateExpense'
 
 import { useDeleteExpenseMutation } from '@/queries/useDeleteExpense.mutation'
 import { useGetExpenseDetailsQuery } from '@/queries/useGetExpenseDetails.query'
@@ -13,16 +15,17 @@ import { AppError } from '@/utils/AppError'
 
 type Props = {
   expenseId: string
+  onSuccess?: () => void
 }
 
-export function useExpenseDetailsViewModel({ expenseId }: Props) {
+export function useExpenseDetailsViewModel({ expenseId, onSuccess }: Props) {
   const routeParams = useGlobalSearchParams<{ id: string }>()
   const { data: expenseDetailsData, isLoading: isExpenseDetailsLoading } =
     useGetExpenseDetailsQuery({ expenseId })
   const deleteExpenseMutation = useDeleteExpenseMutation({
     activityId: routeParams.id,
   })
-  const { close } = useBottomSheetStore()
+  const { open, close } = useBottomSheetStore()
 
   const statusConsolidated = getConsolidatedPaymentStatus(
     expenseDetailsData?.participants ?? [],
@@ -65,6 +68,16 @@ export function useExpenseDetailsViewModel({ expenseId }: Props) {
     }
   }
 
+  function handleShowUpdateExpenseModal() {
+    open({
+      content: createElement(CreateUpdateExpense, {
+        activityId: routeParams.id,
+        expenseData: expenseDetailsData,
+        onSuccess,
+      }),
+    })
+  }
+
   return {
     isExpenseDetailsLoading,
     isDeleteExpenseLoading: deleteExpenseMutation.isPending,
@@ -74,5 +87,6 @@ export function useExpenseDetailsViewModel({ expenseId }: Props) {
     statusPaymentStyles,
     handleClose,
     handleDeleteExpense,
+    handleShowUpdateExpenseModal,
   }
 }

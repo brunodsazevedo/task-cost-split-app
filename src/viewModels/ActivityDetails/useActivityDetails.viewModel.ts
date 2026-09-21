@@ -6,7 +6,7 @@ import {
   ActivityModal,
   ActivityModalProps,
 } from '@/components/ModalContent/ActivityModal'
-import { CreateExpense } from '@/components/ModalContent/CreateExpense'
+import { CreateUpdateExpense } from '@/components/ModalContent/CreateUpdateExpense'
 import { ExpenseDetails } from '@/components/ModalContent/ExpenseDetails'
 
 import { useActivityDetailsQuery } from '@/queries/useActivityDetails.query'
@@ -66,7 +66,7 @@ export function useActivityDetailsViewModel({ activityId }: Props) {
 
   function handleShowCreateExpenseModal() {
     openBottomSheet({
-      content: createElement(CreateExpense, {
+      content: createElement(CreateUpdateExpense, {
         activityId,
         onSuccess: () => handleRefetch(),
       }),
@@ -78,7 +78,10 @@ export function useActivityDetailsViewModel({ activityId }: Props) {
 
   function handleShowExpenseDetailsModal(expenseId: string) {
     openBottomSheet({
-      content: createElement(ExpenseDetails, { expenseId }),
+      content: createElement(ExpenseDetails, {
+        expenseId,
+        onSuccess: () => handleRefetch(),
+      }),
     })
   }
 
